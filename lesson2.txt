@@ -1,0 +1,61 @@
+1. ls /etc, ls /proc, ls /home
+2. mkdir Lesson2 -> cat > Lesson2/file1 -> "File 1" ctrl+d
+   cat > Lesson2/file -> "File 2" ctrl+d
+   cat /Lesson2/file1 /Lesson2/file2 > Lesson2/file3 - объединил в один файл
+   cat Lesson2/file3
+   mv file3 myFile
+3. touch file0{01..10}
+   mv file0{01..10} TEST/
+   rm -r *
+4. Написал скрипт
+  #!bin/bash
+  count=0
+  dir=0
+  for i in .*/
+   do
+    dir=$(($dir+1))
+   done
+
+  for i in .*
+   do
+    count=$(($count+1))
+   done
+
+  echo "Скрытых директорий: $(($dir-1))" 
+  echo "Скрытых файлов: $(($count-$dir-1))" 
+  
+  Запустил bash script.sh
+  Результат:
+  Скрытых директорий:7
+  Скрытых файлов:13
+5. cat /etc/* 2> errors  
+   cat errors | wc -l
+6.Запустил в терминале mc
+  Нашел PID процесса ps aux | grep mc
+  kill 3818 Завершил процесс с закрытием дочерних процессов
+  В терминале "Завершено"
+  kill -KILL 3887 Завершил процес без закрытия дочерних процессов
+  В терминале "Убито"
+
+7. lsof /dev | less
+8. mkdir 20{15..20} Создал папки в директории Изображения/
+   mkdir 20{15..20}/{01..12} Создал папки в каждой директории по месяцам
+9. Написал скрипт
+#!bin/bash
+
+  for y in {2015..2020}
+   do
+    for m in {01..12}
+     do 
+      for d in {01..28}
+       do
+        for n in {01..02}
+         do
+          cd ~/Изображения/$y/$m/
+          echo $y$m$d$n.txt > $y$m$d$n.txt
+         done
+       done
+     done
+   done 
+
+10.  ls -la 2> error | egrep -v [\.]$ | egrep -v итого | egrep -v [\?] | cut -b 2-10 | sort | uniq | wc -l
