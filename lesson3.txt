@@ -1,0 +1,27 @@
+1.  
+  - cat file1
+  - cat file2
+  - ln -s file1 file3
+  - ln file1 file4
+  - символическая ссылка - inode разный; жесткая ссылка - inode одинаковый
+  - удалид file1. Символическая ссылка выдает ошибку, жесткая ссылка работает.
+2. 
+  - mv file2 file1
+  - ln -s file1 file5
+  - sudo mv file4 /home/file4   sudo mv file5 /home/file5 Жесткая ссылка работает, а символическая выдает ошибку
+3. 
+  - touch file1, touch file2
+  - chmod ug=rw,o=r file1    chmod 664 file1
+    chmod u=rw,go-rwx file2   chmod 600 file2
+4. useradd -m -G developer -s /bin/bash petrov
+   sudo gpasswd -a petrov sudo
+5. useradd -m -G developer -s /bin/bash petrov
+   useradd -m -G developer -s /bin/bash ivanov
+   useradd -m -G developer -s /bin/bash sidorov
+   sudo mkdir developer
+   sudo chmod -R 2775 /home/developer
+   sudo chgrp -R develover /home/developer/
+6. sudo mkdir devFiles
+   sudo chmod -R 2750 /home/developer/devFiles
+7. chmod 330 lost
+   
