@@ -1,0 +1,6 @@
+1. grep -P '^((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.?){4}$' test_data.txt
+2. grep -P '^[\w\d-]+\.(jpg|png|gif)$' test_data.txt
+3. grep -P '^https?.+\.(jpg|png|gif)$' test_data.txt
+4. grep -P '^((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.?){4}$' test_data.txt | grep -P -v '^(0\.0\.0\.0|10.\d+\.\d+\.\d+|127\.\d+\.\d+\.\d+|169\.254\.\d+\.\d+|172\.16\.\d+\.\d+|192\.168\.\d+\.\d+|255\.255\.255\.255)
+5. grep -P '^https?.+\.(^jpg|^png|^gif|.+)$' test_data.txt
+6. ?
