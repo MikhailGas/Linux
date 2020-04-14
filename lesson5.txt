@@ -1,0 +1,90 @@
+1. 
+#!bin/bash
+usage(){
+  cat << eof
+этот скрипт для удаления пробелов из текста и смены регистра символов на верхний.
+синтаксис: $0 [--help] имя_файла
+
+   --help - вызов справки
+
+eof
+}
+while [[ $# -gt 0 ]] ; do
+        if [[ -e $1 ]] ; then
+                file=$1
+                shift
+        else
+                case $1 in
+                        --help)
+                        usage
+                        exit 0
+                ;;
+                        *)
+                        echo "посмотрите описание $0 --help"
+                        exit 0
+                esac
+        fi
+
+done
+[$file -eq '']  && echo "нужно ввести имя файла. посмотрите описание $0 --help" && exit 2
+
+sed 's/[\ ]//pg' $file | tr -s [:lower:] [:upper:] > result
+cat result
+echo "результат сохранен в файл result в текущей дериктории"
+
+2. 
+#!bin/bash
+usage(){
+  cat << eof
+Этот скрипт мониторит файл auth.log на наличие событий неудачной аутентификации пользователей.
+синтаксис: $0 [--help]
+
+   --help - вызов справки
+
+eof
+}
+while [[ $# -gt 0 ]] ; do
+        case $1 in
+                --help)
+                usage
+                exit 0
+        ;;
+                *)
+                echo "посмотрите описание $0 --help"
+                exit 0
+        esac
+
+
+done
+grep -i 'Authentication failure' /var/log/auth.log > result_log
+
+cat result_log
+echo ''
+echo "результат сохранен в файл result_log в текущей дериктории"
+
+3. 
+#!bin/bash
+
+usage(){
+  cat << eof
+Этот скрипт определяет занятое каждым пользователем дисковое пространство.
+Информацию сохраняет в файл size.info
+синтаксис: $0
+
+   --help - вызов справки
+                                                                                                                        eof                                                                                                                     }                                                                                                                       while [[ $# -gt 0 ]] ; do                                                                                                       if [[ -e $1 ]] ; then
+                file=$1                                                                                                                 shift                                                                                                           else                                                                                                                            case $1 in                                                                                                                      --help)
+                        usage                                                                                                                   exit 0                                                                                                          ;;                                                                                                                              *)                                                                                                                      echo "посмотрите описание $0 --help"                                                                                    exit 0                                                                                                          esac                                                                                                            fi                                                                                                              
+done                 
+cat /etc/passwd | grep -P '100[\d]{1}' | cut -d ':' -f 1 > passwd.my
+date -d 'yesterday' >> size.log
+while read USER
+do
+
+        du /home/$USER 2>null | grep -P \/home\/${USER}$ >> size.log
+
+done < passwd.my
+
+cat size.log
+
+Далее комадой crontab -e добавил строчку @daily /home/mihail/discsize.sh
